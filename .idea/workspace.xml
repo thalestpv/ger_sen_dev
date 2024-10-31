@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f4ffa10-6c38-494f-90c6-9bbc4d60a2d2" name="Changes" comment="primeiro" />
+    <list default="true" id="0f4ffa10-6c38-494f-90c6-9bbc4d60a2d2" name="Changes" comment="primeiro">
+      <change afterPath="$PROJECT_DIR$/testecontainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testefinalcontainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/cadastro/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/cadastro/gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/mueteste.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/mueteste.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +28,12 @@
   <component name="Git.Settings">
     <branch-grouping />
     <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -35,10 +49,13 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/thalestpv/gen_sen.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/thalestpv/ger_sen_dev.git&quot;,
     &quot;accountId&quot;: &quot;97787b11-f0c0-46c4-803c-e8a8ebc79ab7&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../ger_sen/.venv/lib/python3.12/site-packages/customtkinter/windows/widgets/ctk_frame.py" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -57,9 +74,11 @@
     &quot;Python.login.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.mueteste.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testecontainer.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/thales/PycharmProjects/ger_sen_dev&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;ChangesTree.GroupingKeys&quot;: [
@@ -170,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729973846321</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="primeiro">
+      <option name="closed" value="true" />
+      <created>1730324697296</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730324697296</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,6 +218,7 @@
     <MESSAGE value="plano de fundo" />
     <MESSAGE value="Primeira versão do login" />
     <MESSAGE value="melhorias na senha" />
-    <option name="LAST_COMMIT_MESSAGE" value="melhorias na senha" />
+    <MESSAGE value="primeiro" />
+    <option name="LAST_COMMIT_MESSAGE" value="primeiro" />
   </component>
 </project>

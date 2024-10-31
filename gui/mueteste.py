@@ -1,4 +1,4 @@
-from lib2to3.fixes.fix_ne import FixNe
+from tkinter import Toplevel
 
 import customtkinter
 
@@ -201,24 +201,28 @@ class Frameola(customtkinter.CTkFrame):
             fg_color="#006fff")
         self.lbl_teste = customtkinter.CTkLabel(self,text="Esta é a primeira tela")
         self.lbl_teste.place(x=20,y=20)
-        self.btn_segunda = customtkinter.CTkButton(self, text="ir", command=master.atv_tchau())
+        self.btn_segunda = customtkinter.CTkButton(self, text="ir", command=self.botao2)
         self.btn_segunda.place(x=81,y=408)
+
+    def botao2(self):
+        janela.atv_tchau()
 
 
 class Frametchau(customtkinter.CTkFrame):
-    def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
+    def __init__(self, master):
+        super().__init__(master)
         self.configure(
             height=600,
             width=400,
             corner_radius=0,
             fg_color="#ff0000")
-        self.lbl_teste = customtkinter.CTkLabel(self,text="Esta é a primeira tela")
+        self.lbl_teste = customtkinter.CTkLabel(self,text="Esta é a segunda tela")
         self.lbl_teste.place(x=20,y=20)
-        self.btn_segunda = customtkinter.CTkButton(self, text="Voltar", command=self.botao1())
+        self.btn_segunda = customtkinter.CTkButton(self, text="Voltar", command=self.botao1)
         self.btn_segunda.place(x=81,y=408)
     def botao1(self):
         janela.atv_ola()
+
 
 class janela(customtkinter.CTk):
     def __init__(self):
@@ -226,9 +230,9 @@ class janela(customtkinter.CTk):
         self.geometry("900x600")
         self.resizable(False, False)
         self._set_appearance_mode("dark")
-        self.frame_ola = Frameola(master=self)
+        self.frame_ola = Frameola(self)
         self.frame_ola.place(x=500,y=0)
-        self.frame_tchau = Frametchau(master=self)
+        self.frame_tchau = Frametchau(self)
         self.frame_tchau.place(x=500,y=0)
 
     def atv_ola(self):
@@ -241,6 +245,7 @@ class janela(customtkinter.CTk):
 
 
 janela = janela()
+
 
 
 janela.mainloop()
