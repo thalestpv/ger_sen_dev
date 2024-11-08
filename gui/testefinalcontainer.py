@@ -320,13 +320,18 @@ class FrameGeren(CTkFrame):
             height=600,
             width=900,
             corner_radius=0,
-            fg_color="#006fff"
+            fg_color="#1e1e1e"
         )
         self.lbl_teste = CTkLabel(self, text="tela gerenciador de senhas")
         self.lbl_teste.place(x=20, y=20)
         self.btn_segunda = CTkButton(self, text="voltar", command=lambda: controller.show_frame(FrameLogin))
-        self.btn_segunda.place(x=81, y=408)
-
+        self.btn_segunda.place(x=29, y=299)
+        self.btn_pag1 = CTkButton(self, text="Pag1", command=lambda : self.show_login(Pag1))
+        self.btn_pag1.place(x=29,y=209)
+        self.btn_pag2 = CTkButton(self, text="Pag2", command=lambda : self.show_login(Pag2))
+        self.btn_pag2.place(x=29, y=239)
+        self.btn_pag3 = CTkButton(self, text="Pag2", command=lambda : self.show_login(Pag3))
+        self.btn_pag3.place(x=29, y=269)
 
         container = CTkFrame(self)
         container.configure(width=660, height=600)
@@ -339,13 +344,26 @@ class FrameGeren(CTkFrame):
             frame.place(x=0, y=0)
         self.show_login(Pag1)
 
+        img_btn_adicionar = CTkImage(
+            dark_image=Image.open("assets/gerenciador/mais.png"),
+            light_image=Image.open("assets/gerenciador/mais.png"),
+            size=(25, 25))
+        self.btn_adicionar = CTkButton(self, text="Adicionar", image=img_btn_adicionar, anchor="w", width=200,height=43, font=("Roboto Medium", 20 * -1, "bold"), corner_radius=20, fg_color="#1e1e1e")
+        self.btn_adicionar.place(x=20,y=32)
+        img_btn_adicionar = CTkImage(
+            dark_image=Image.open("assets/gerenciador/remover.png"),
+            light_image=Image.open("assets/gerenciador/remover.png"),
+            size=(25, 25))
+        self.btn_adicionar = CTkButton(self, text="Remover", image=img_btn_adicionar, anchor="w", width=200,height=43, font=("Roboto Medium", 20 * -1, "bold"), corner_radius=20, fg_color="#1e1e1e")
+        self.btn_adicionar.place(x=20,y=80)
+        img_btn_adicionar = CTkImage(
+            dark_image=Image.open("assets/gerenciador/sair.png"),
+            light_image=Image.open("assets/gerenciador/sair.png"),
+            size=(25, 25))
+        self.btn_adicionar = CTkButton(self, text="Sair", image=img_btn_adicionar, anchor="w", width=200,height=43, font=("Roboto Medium", 20 * -1, "bold"), corner_radius=20, fg_color="#1e1e1e")
+        self.btn_adicionar.place(x=20,y=525)
 
-        self.btn_pag1 = CTkButton(self, text="Pag1", command=lambda : self.show_login(Pag1))
-        self.btn_pag1.place(x=29,y=89)
-        self.btn_pag2 = CTkButton(self, text="Pag2", command=lambda : self.show_login(Pag2))
-        self.btn_pag2.place(x=29, y=149)
-        self.btn_pag3 = CTkButton(self, text="Pag2", command=lambda : self.show_login(Pag3))
-        self.btn_pag3.place(x=29, y=209)
+
 
     def show_login(self, cont):
         frame = self.frames[cont]
@@ -389,7 +407,4 @@ class Pag3(CTkFrame):
         self.lbl_teste.place(x=20, y=20)
         self.btn_segunda = CTkButton(self, text="ir para Pag1", command=lambda: controller.show_login(Pag1))
         self.btn_segunda.place(x=81, y=408)
-app = Janela()
 
-
-app.mainloop()
