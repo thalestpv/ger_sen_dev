@@ -1,4 +1,4 @@
-#!/home/thales/PycharmProjects/ger_sen/.venv/bin/python
+#!/home/thales/Codigos/ger_sen_dev/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
