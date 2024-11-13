@@ -12,15 +12,11 @@ from hashlib import sha256
 import string as st
 import numpy as np
 from tkinter import messagebox, ttk
-from ger_sen_dev.login import ent_senha
+#from ger_sen_dev.login import ent_senha
 import hashlib
 import tkinter
 
-
-
-
 #CRIA UMA TABELA PARA OS DADOS DO CADASTRO
-
 def cadastro_db(self):
     cursor = self.conn.cursor()
     cursor.execute('''
@@ -32,10 +28,6 @@ def cadastro_db(self):
     )
     ''')
     self.conn.commit()
-
-
-
-
 
 #CADASTRA OS DADOS DAS ENTRADAS E CRIA O QRCODE COM A CHAVE 2FA
 def cadastro_db(self):
@@ -136,10 +128,6 @@ def cadastro_db(self):
 
     finally:
         cursor.close()
-
-
-
-
 
 #VALIDA OS DADOS ENVIADOS NO LOGIN
 def validar_login(self):

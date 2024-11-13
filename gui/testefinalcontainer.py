@@ -1,5 +1,17 @@
+import sqlite3
+
 from customtkinter import *
-from PIL import Image
+from PIL import Image, ImageTk
+import pyotp
+import qrcode
+from sqlite3 import connect
+from hashlib import sha256
+import string as st
+import numpy as np
+from tkinter import messagebox, ttk
+import hashlib
+import tkinter
+
 
 class Janela(CTk):
     def __init__(self, *args, **kwargs):
@@ -171,7 +183,8 @@ class Entrar(CTkFrame):
         ### Botão inscreva-se
         self.btn_inscrevase = CTkButton(
             self,
-            command=lambda :controller.show_login(Registrar),
+            command=lambda :self.cadastro_db(),
+            # command=lambda :controller.show_login(Registrar),
             border_width=0,
             width=74,
             height=16,
@@ -188,6 +201,25 @@ class Entrar(CTkFrame):
 
     def bisa(self):
         self.master.master.master.master.show_frame(FrameGeren)
+
+    # CRIA UMA TABELA PARA OS DADOS DO CADASTRO
+    def cadastro_db(self):
+        conn = sqlite3.connect("cadastro.db")
+        cursor = conn.cursor()
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS cadastro (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            chave_2fa TEXT NOT NULL,
+            usuario TEXT NOT NULL,
+            senha TEXT NOT NULL
+        )
+        ''')
+        conn.commit()
+        self.pai()
+
+    def pai(self):
+        self.master.master.show_login(Registrar)
+
 class Registrar(CTkFrame):
     def __init__(self, parent, controller):
         CTkFrame.__init__(self, parent)
@@ -264,7 +296,7 @@ class Registrar(CTkFrame):
         ### Botão registrar
         self.btn_registrar = CTkButton(
             self,
-            command=lambda : self.btn_registrar,
+            command=lambda : self.cadastro(),
             corner_radius=15,
             border_width=0,
             width=238,
@@ -312,6 +344,108 @@ class Registrar(CTkFrame):
 
     def btn_registrar(self):
         print("btn_registrar")
+
+    # CADASTRA OS DADOS DAS ENTRADAS E CRIA O QRCODE COM A CHAVE 2FA
+    def cadastro(self):
+        # Validações básicas
+        usuario = self.ent_usuario.get().strip()
+        senha = self.ent_senha.get()
+        senha_repetida = self.ent_repsen.get()
+
+        # Verificar se todos os campos foram preenchidos
+        if not usuario or not senha or not senha_repetida:
+            messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
+            return False
+
+        # Verificar se as senhas coincidem
+        if senha != senha_repetida:
+            messagebox.showerror("Erro", "As senhas não coincidem!")
+            return False
+
+        # Verificar se o usuário já existe
+        conn = sqlite3.connect("cadastro.db")
+        cursor = conn.cursor()
+        cursor.execute('SELECT usuario FROM cadastro WHERE usuario = ?', (usuario,))
+        if cursor.fetchone():
+            messagebox.showerror("Erro", "Este usuário já está cadastrado!")
+            return False
+
+        try:
+            # Gerar chave 2FA
+            chave_2fa = pyotp.random_base32()
+
+            # Criar URI para o QR Code
+            totp = pyotp.TOTP(chave_2fa)
+            uri = totp.provisioning_uri(usuario, issuer_name="SeuApp")
+
+            # Gerar QR Code
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=10,
+                border=4,
+            )
+            qr.add_data(uri)
+            qr.make(fit=True)
+
+            # Criar imagem do QR Code
+            qr_image = qr.make_image(fill_color="black", back_color="white")
+
+            # Converter para formato PhotoImage do Tkinter
+            qr_image = qr_image.resize((200, 200))  # Redimensionar para um tamanho adequado
+            qr_photo = ImageTk.PhotoImage(qr_image)
+
+            # Criar uma nova janela para mostrar o QR Code
+            qr_window = CTkToplevel(self)
+            qr_window.title("Configure 2FA")
+            qr_window.geometry("400x500")
+
+            # Adicionar QR Code e instruções na janela
+            CTkLabel(qr_window, text="Configure a Autenticação de Dois Fatores",
+                     font=("Roboto Bold", 16)).pack(pady=10)
+
+            qr_label = tkinter.Label(qr_window, image=qr_photo)
+            qr_label.image = qr_photo  # Manter referência
+            qr_label.pack(pady=10)
+
+            CTkLabel(qr_window, text="1. Abra seu aplicativo de autenticação\n" +
+                                     "2. Escaneie o QR Code acima\n" +
+                                     "3. Guarde sua chave de backup:",
+                     font=("Roboto", 12)).pack(pady=10)
+
+            # Mostrar a chave em texto para backup
+            chave_entry = CTkEntry(qr_window, width=300)
+            chave_entry.insert(0, chave_2fa)
+            chave_entry.configure(state="readonly")
+            chave_entry.pack(pady=10)
+
+            # Hash da senha para segurança
+            senha_hash = hashlib.sha256(senha.encode()).hexdigest()
+
+            # Inserir novo usuário
+            cursor.execute('''
+                INSERT INTO cadastro (usuario, senha, chave_2fa)
+                VALUES (?, ?, ?)
+            ''', (usuario, senha_hash, chave_2fa))
+
+            self.conn.commit()
+            messagebox.showinfo("Sucesso", "Cadastro realizado com sucesso!")
+
+            # Limpar os campos após cadastro
+            self.ent_usuario.delete(0, 'end')
+            self.ent_senha.delete(0, 'end')
+            self.ent_repsen.delete(0, 'end')
+
+            return True
+
+        except sqlite3.Error as e:
+            messagebox.showerror("Erro", f"Erro ao cadastrar: {str(e)}")
+            self.conn.rollback()
+            return False
+
+        finally:
+            cursor.close()
+
 
 class FrameGeren(CTkFrame):
     def __init__(self, parent, controller):
