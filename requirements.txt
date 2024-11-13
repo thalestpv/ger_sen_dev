@@ -1,2 +1,5 @@
 customtkinter
 pillow
+numpy
+qrcode
+pyotp
